@@ -1,0 +1,18 @@
+{%extends 'app/deatail_background.html' %}
+{%block title%}
+
+{%endblock%}
+
+{%block content %}
+<img style="height: 724px;" class="card-img-top" src="{{cards.card_detail_set.first.foto1}}" alt="Card image cap">
+
+{%for card in cards.card_detail_set.all%}
+<div class="card m-2" style="width: 18rem;">
+    <img class="card-img-top" src="{{card.foto}}" alt="Card image cap">
+    <div class="card-body">
+        <h1>{{card.name}}</h1>
+      <p class="card-text">{{card.brand}}</p>
+    </div>
+  </div>
+{%endfor%}
+{%endblock%}

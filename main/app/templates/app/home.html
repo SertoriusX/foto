@@ -1,0 +1,77 @@
+{%extends 'app/index.html' %}
+{%block title%}
+{%endblock%}
+
+{%block content %}
+<div style="display: flex; margin-top: 50px;" >
+    <h1 style="margin-left: auto;margin-right: auto;">Card list</h1>
+    </div>
+<div  class="container-fluid d-flex" style="margin-top: 80px;">
+
+
+  
+    <div style="width: 200px;margin-left: 50px; border: 2px solid black " class="col-md-4">
+      <h2>Category</h2>
+      <br>
+      <hr>
+      
+          <a class="list-group-item" href="{% url 'home' %}">All</a>
+  
+          {% for category in categories %}
+  
+            <li class="list-group-item">
+                <a class="btn btn-primary" href="{% url 'home' %}?category={{ category.name }}">{{ category.name }}</a>
+            </li>
+  
+          {% endfor %}
+  
+  
+    </div>
+  
+  </div>
+  <div style="margin-top: -350px
+" class="d-flex container">
+{%for card in cards%}
+<div class="card m-2" style="width: 18rem;">
+  <a href="/detail/{{card.id}}"><img class="card-img-top" src="{{card.card_detail_set.first.foto}}" alt="Card image cap"></a>
+    <div class="card-body">
+        <h1>{{card.name}}</h1>
+      <p class="card-text">{{card.name}}</p>
+      
+    </div>
+  </div>
+{%endfor%}
+</div>
+
+
+</div>
+
+
+<!--Paginator-->
+<div class="container">
+    <nav style="margin-left: 80px;" aria-label="Page navigation example">
+      <ul class="pagination">
+        {% if cards.has_previous %}
+  
+        <li class="page-item"><a class="page-link" href="?page={{ cards.previous_page_number }}">Previous</a></li>
+  
+        {% endif %}
+        {%for i in cards.paginator.page_range%}
+          {%if i == cards.number%}
+          <li class="page-item active"><a class="page-link" href="">{{i}}</a></li>
+          {%else%}
+          <li class="page-item "><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+  
+          {%endif%}
+        {%endfor%}
+      {% if cards.has_next %}
+  
+        <li class="page-item"><a class="page-link" href="?page={{ cards.next_page_number }}">Next</a></li>
+  
+        {% endif %}
+  
+      </ul>
+    </nav>
+  </div>
+    <!--endPaginator--> 
+  {%endblock%}
